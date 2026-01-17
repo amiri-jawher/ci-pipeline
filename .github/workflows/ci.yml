@@ -1,0 +1,21 @@
+name: Dummy CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Dummy Build
+        run: echo "Building the application..."
+
+      - name: Dummy Test
+        run: echo "Running tests... All tests passed!"
