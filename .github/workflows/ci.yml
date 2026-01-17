@@ -1,4 +1,4 @@
-name: Dummy CI Pipeline
+name: CI Pipeline
 
 on:
   push:
@@ -7,13 +7,26 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+      - run: echo "build step"
 
-      - name: Dummy Build
-        run: echo "Building the application..."
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "test step"
 
-      - name: Dummy Test
-        run: echo "Running tests... All tests passed!"
+  run:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "run step"
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: run
+    steps:
+      - run: echo "deploy step"
